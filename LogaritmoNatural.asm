@@ -87,13 +87,13 @@ do_ln:
     cvt.d.w $f2, $f2
     sub.d $f2, $f12, $f2  # f2 = (x-1)
 
-    # sum = 0
-    mtc1 $zero, $f0
+     li $t4, 50
+   mtc1 $zero, $f0
     cvt.d.w $f0, $f0
     # term = y
     mov.d $f6, $f2
 
-    li $t4, 1000000 #numero de ciclos
+    li $t4, 30
     li $t5, 1   # k
     li $t6, 1   # sign
 
