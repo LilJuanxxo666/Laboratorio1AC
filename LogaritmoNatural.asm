@@ -118,8 +118,6 @@ next_l:
     addi $t4, $t4, -1
     bgtz $t4, ln_loop
 
-    # Ajustar sum: sum += t1 * ln(2)
-    # t1 en int => convirtamos a double
     mtc1 $t1, $f12
     cvt.d.w $f12, $f12
     mul.d $f12, $f12, $f8
