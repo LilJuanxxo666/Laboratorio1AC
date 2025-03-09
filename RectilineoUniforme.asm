@@ -2,9 +2,9 @@
 .data
 	#CAPA DE MRU
 	menuMRU:	.asciiz "\nQue variable quieres hallar\n1.Distancia\n2.Velocidad\n3.Tiempo\nIngrese: "
-	ingreseDistancia:	.asciiz "Ingrese valor de distancia: "
-	ingreseVelocidad:	.asciiz "Ingrese valor de velocidad: "
-	ingreseTiempo:	.asciiz "Ingrese valor de tiempo: "
+	ingreseDistancia:	.asciiz "Ingrese valor de distancia(m): "
+	ingreseVelocidad:	.asciiz "Ingrese valor de velocidad(m/s): "
+	ingreseTiempo:	.asciiz "Ingrese valor de tiempo(s): "
 			
 	IngresaValor:	.asciiz "Ingrese un valor: "
 	msgRespuesta: .asciiz "El resultado es: "
@@ -34,7 +34,7 @@ distanciaMRU:
 	move $t0, $v0
 	
 	mtc1 $t0, $f0
-	cvt.s.w $f0, $f0
+	cvt.d.w $f0, $f0
 	
 	#Ingresar Variable Tiempo 
 	li $v0, 4
@@ -45,10 +45,11 @@ distanciaMRU:
 	syscall
 	move $t1, $v0	
 	
-	mtc1 $t1, $f1
-	cvt.s.w $f1, $f1
+	mtc1 $t1, $f2
+	cvt.d.w $f2, $f2
 	
-	mul.s $f12, $f1, $f0	
+	mul.d $f12, $f2, $f0	
+	
 	
 	j imprimirResultado
 #v=d/t
@@ -63,7 +64,7 @@ velocidadMRU:
 	move $t0, $v0
 	
 	mtc1 $t0, $f0
-	cvt.s.w $f0, $f0
+	cvt.d.w $f0, $f0
 	
 	#Ingresar Variable Tiempo 
 	li $v0, 4
@@ -74,10 +75,10 @@ velocidadMRU:
 	syscall
 	move $t1, $v0	
 	
-	mtc1 $t1, $f1
-	cvt.s.w $f1, $f1
+	mtc1 $t1, $f2
+	cvt.d.w $f2, $f2
 	
-	div.s $f12,$f0,$f1
+	div.d $f12,$f0,$f2
 	
 	j imprimirResultado 
 #t=d/v
@@ -92,7 +93,7 @@ tiempoMRU:
 	move $t0, $v0
 	
 	mtc1 $t0, $f0
-	cvt.s.w $f0, $f0
+	cvt.d.w $f0, $f0
 	
 	#Ingresar Variable velocidad 
 	li $v0, 4
@@ -103,10 +104,10 @@ tiempoMRU:
 	syscall
 	move $t1, $v0	
 	
-	mtc1 $t1, $f1
-	cvt.s.w $f1, $f1
+	mtc1 $t1, $f2
+	cvt.d.w $f2, $f2
 	
-	div.s $f12,$f0,$f1
+	div.s $f12,$f0,$f2
 	
 	j imprimirResultado
 
@@ -114,7 +115,7 @@ imprimirResultado:
 	li $v0, 4
 	la $a0, msgRespuesta
 	syscall
-	li $v0, 2
+	li $v0, 3
 	syscall
 	
 	
