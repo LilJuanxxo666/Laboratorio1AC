@@ -87,27 +87,24 @@ distanciaMRU:
 	la $a0, ingreseVelocidad
 	syscall
 	
-	li $v0, 5
-	syscall
-	move $t0, $v0
-	
-	mtc1 $t0, $f0
-	cvt.d.w $f0, $f0
+	li $v0, 7
+    	syscall
+    	mov.d $f2, $f0
 	
 	#Ingresar Variable Tiempo 
 	li $v0, 4
 	la $a0, ingreseTiempo
 	syscall
 	
-	li $v0, 5
+	li $v0, 7
 	syscall
-	move $t1, $v0	
+	mov.d $f0, $f0	
 	
-	mtc1 $t1, $f2
-	cvt.d.w $f2, $f2
+	mul.d $f12, $f0, $f2	
 	
-	mul.d $f12, $f2, $f0	
-	
+	li $v0, 4
+    	la $a0, newline
+    	syscall
 	li $v0, 4
 	la $a0, msgRespuestaDistancia
 	syscall
@@ -125,27 +122,24 @@ velocidadMRU:
 	la $a0, ingreseDistancia
 	syscall
 	
-	li $v0, 5
-	syscall
-	move $t0, $v0
-	
-	mtc1 $t0, $f0
-	cvt.d.w $f0, $f0
+	li $v0, 7
+    	syscall
+    	mov.d $f2, $f0
 	
 	#Ingresar Variable Tiempo 
 	li $v0, 4
 	la $a0, ingreseTiempo
 	syscall
 	
-	li $v0, 5
-	syscall
-	move $t1, $v0	
+	li $v0, 7
+    	syscall
+    	mov.d $f0, $f0
 	
-	mtc1 $t1, $f2
-	cvt.d.w $f2, $f2
+	div.d $f12,$f2,$f0
 	
-	div.d $f12,$f0,$f2
-	
+	li $v0, 4
+    	la $a0, newline
+    	syscall
 	li $v0, 4
 	la $a0, msgRespuestaVelocidad
 	syscall
@@ -163,27 +157,24 @@ tiempoMRU:
 	la $a0, ingreseDistancia
 	syscall
 	
-	li $v0, 5
-	syscall
-	move $t0, $v0
-	
-	mtc1 $t0, $f0
-	cvt.d.w $f0, $f0
+	li $v0, 7
+    	syscall
+    	mov.d $f2, $f0
 	
 	#Ingresar Variable velocidad 
 	li $v0, 4
 	la $a0, ingreseVelocidad
 	syscall
 	
-	li $v0, 5
-	syscall
-	move $t1, $v0	
+	li $v0, 7
+    	syscall
+    	mov.d $f0, $f0
 	
-	mtc1 $t1, $f2
-	cvt.d.w $f2, $f2
+	div.d $f12,$f2,$f0
 	
-	div.d $f12,$f0,$f2
-	
+	li $v0, 4
+    	la $a0, newline
+    	syscall
 	li $v0, 4
 	la $a0, msgRespuestaTiempo
 	syscall
@@ -197,13 +188,13 @@ tiempoMRU:
 	
 #Capa de Logaritmo---------------------------------------------------------------------------------------------
 logaritmo:
-	 # Solicitar el valor de x
+	# Solicitar el valor de x
     	li $v0, 4
     	la $a0, ingreseLogaritmo
     	syscall
 
     	# Leer double
-   	 li $v0, 7
+   	li $v0, 7
     	syscall
     	mov.d $f12, $f0   # Guardar x en $f12
 
@@ -218,6 +209,10 @@ make_positive_done:
     	jal ln_main
 
     	# Imprimir resultado
+    	li $v0, 4
+    	la $a0, newline
+    	syscall
+    	
     	li $v0, 4
     	la $a0, respuestaLogaritmo
     	syscall
@@ -331,6 +326,10 @@ seno:
     	jal sin_taylor
 
     	# Mostrar resultado
+    	li $v0, 4
+    	la $a0, newline
+    	syscall
+    	
     	li $v0, 4
     	la $a0, respuestaSeno
     	syscall
@@ -488,6 +487,9 @@ update_b:
 bisection_done:
     	# Imprimir el resultado
     	li $v0, 4
+    	la $a0, newline
+    	syscall
+    	li $v0, 4
     	la $a0, respuestaBise
     	syscall
     	li $v0, 3
@@ -544,6 +546,10 @@ newton_loop:
     	bgtz $t1, newton_loop
 
     	# Mostrar resultado en f2
+    	li $v0, 4
+    	la $a0, newline
+    	syscall
+    	
     	li $v0, 4
     	la $a0, respuestaNewton
     	syscall
